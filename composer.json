@@ -1,0 +1,35 @@
+{
+  "name": "simensen/sequence",
+  "description": "Sequences",
+  "license": "MIT",
+  "type": "library",
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.43"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Simensen\\Sequence\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Simensen\\Sequence\\Tests\\Unit\\": "tests/Unit/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "0.0.x-dev"
+    },
+    "composer-normalize": {
+      "indent-size": 2,
+      "indent-style": "space"
+    }
+  }
+}
