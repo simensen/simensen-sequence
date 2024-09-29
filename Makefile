@@ -31,6 +31,9 @@ help: ## Displays this list of targets with descriptions
 test: phive vendor ## Tests code
 	phpunit
 
+test-coverage: phive vendor ## Tests code (with coverage)
+	XDEBUG_MODE=coverage phpunit -c phpunit-coverage.dist.xml
+
 vendor: composer.json
 	composer validate --strict
 	composer install --no-interaction --no-progress

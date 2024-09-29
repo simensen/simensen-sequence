@@ -18,4 +18,10 @@
             <directory>src</directory>
         </include>
     </source>
+    <coverage>
+        <report>
+            <cobertura outputFile=".build/coverage/cobertura.xml"/>
+            <html outputDirectory=".build/coverage" lowUpperBound="50" highLowerBound="90"/>
+        </report>
+    </coverage>
 </phpunit>
