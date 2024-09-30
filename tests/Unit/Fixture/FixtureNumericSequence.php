@@ -6,6 +6,6 @@ namespace Simensen\Sequence\Tests\Unit\Fixture;
 
 use Simensen\Sequence\NumericSequence;
 
-class FixtureNumericSequence extends NumericSequence
+final readonly class FixtureNumericSequence extends NumericSequence
 {
 }

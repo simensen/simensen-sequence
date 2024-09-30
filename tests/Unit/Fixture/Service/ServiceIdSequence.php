@@ -9,7 +9,7 @@ use Simensen\Sequence\CastedSequence;
 /**
  * @extends CastedSequence<ServiceId>
  */
-class ServiceIdSequence extends CastedSequence
+final readonly class ServiceIdSequence extends CastedSequence
 {
     protected function cast(int $next): ServiceId
     {

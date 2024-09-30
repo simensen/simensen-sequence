@@ -12,7 +12,7 @@ use Simensen\Sequence\Sequence\Sequence;
  *
  * @implements Sequence<T>
  */
-abstract class CastedSequence implements Sequence
+abstract readonly class CastedSequence implements Sequence
 {
     /**
      * @use DefaultCastedSequenceBehavior<T>

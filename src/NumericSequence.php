@@ -10,7 +10,7 @@ use Simensen\Sequence\Sequence\Sequence;
 /**
  * @implements Sequence<int>
  */
-abstract class NumericSequence implements Sequence
+abstract readonly class NumericSequence implements Sequence
 {
     use DefaultNumericSequenceBehavior;
 }
