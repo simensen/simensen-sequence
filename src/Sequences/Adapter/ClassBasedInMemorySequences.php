@@ -17,7 +17,7 @@ final class ClassBasedInMemorySequences implements Sequences
     ) {
     }
 
-    public function generateForClass(string $sequenceClassName): int
+    public function nextForSequence(string $sequenceClassName): int
     {
         if (!array_key_exists($sequenceClassName, $this->setup)) {
             $this->setup[$sequenceClassName] = [

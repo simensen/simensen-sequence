@@ -18,6 +18,6 @@ trait DefaultCastedSequenceBehavior
 
     public function next(): mixed
     {
-        return $this->cast($this->sequences->generateForClass(static::class));
+        return $this->cast($this->sequences->nextForSequence(static::class));
     }
 }

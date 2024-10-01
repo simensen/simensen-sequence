@@ -12,7 +12,7 @@ final class GlobalInMemorySequences implements Sequences
     {
     }
 
-    public function generateForClass(string $sequenceClassName): int
+    public function nextForSequence(mixed $sequence): int
     {
         return $this->next++;
     }
