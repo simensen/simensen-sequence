@@ -11,8 +11,9 @@ in
       configuredPkgs.php
       configuredPkgs.php.packages.composer
       configuredPkgs.php.packages.phive
-      pkgs.jetbrains.phpstorm
       pkgs.gnupg
+      pkgs.jetbrains.phpstorm
+      pkgs.markdownlint-cli2
       pkgs.yamllint
     ];
     shellHook =

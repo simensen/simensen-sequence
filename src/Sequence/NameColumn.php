@@ -8,7 +8,7 @@ use Attribute;
 use Stringable;
 
 #[Attribute(Attribute::TARGET_CLASS)]
-final readonly class Column implements Stringable
+final readonly class NameColumn implements Stringable
 {
     public function __construct(private string $name)
     {

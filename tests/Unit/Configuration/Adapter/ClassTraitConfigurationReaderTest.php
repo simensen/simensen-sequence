@@ -9,8 +9,8 @@ use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Simensen\Sequence\Configuration\Adapter\ClassTraitConfigurationReader;
 use Simensen\Sequence\Configuration\Configuration;
-use Simensen\Sequence\Sequence\Column;
 use Simensen\Sequence\Sequence\Connection;
+use Simensen\Sequence\Sequence\CurrentValueColumn;
 use Simensen\Sequence\Sequence\Table;
 use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithAllAttributes;
 use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithColumnAndConnection;
@@ -54,13 +54,13 @@ class ClassTraitConfigurationReaderTest extends TestCase
             )],
             [FixtureSequenceWithAllAttributes::class, new Configuration(
                 FixtureSequenceWithAllAttributes::class,
-                column: new Column('fixture_column_with_all_attributes'),
+                currentValueColumn: new CurrentValueColumn('fixture_column_with_all_attributes'),
                 connection: new Connection('fixture_connection_with_all_attributes'),
                 table: new Table('fixture_table_with_all_attributes')
             )],
             [FixtureSequenceWithColumnOnly::class, new Configuration(
                 FixtureSequenceWithColumnOnly::class,
-                column: new Column('fixture_column_with_column_only')
+                currentValueColumn: new CurrentValueColumn('fixture_column_with_column_only')
             )],
             [FixtureSequenceWithConnectionOnly::class, new Configuration(
                 FixtureSequenceWithConnectionOnly::class,
@@ -72,12 +72,12 @@ class ClassTraitConfigurationReaderTest extends TestCase
             )],
             [FixtureSequenceWithColumnAndConnection::class, new Configuration(
                 FixtureSequenceWithColumnAndConnection::class,
-                column: new Column('fixture_column_with_column_and_connection'),
+                currentValueColumn: new CurrentValueColumn('fixture_column_with_column_and_connection'),
                 connection: new Connection('fixture_connection_with_column_and_connection')
             )],
             [FixtureSequenceWithColumnAndTable::class, new Configuration(
                 FixtureSequenceWithColumnAndTable::class,
-                column: new Column('fixture_column_with_column_and_table'),
+                currentValueColumn: new CurrentValueColumn('fixture_column_with_column_and_table'),
                 table: new Table('fixture_table_with_column_and_table')
             )],
             [FixtureSequenceWithConnectionAndTable::class, new Configuration(

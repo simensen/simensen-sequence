@@ -25,3 +25,6 @@ indent_style = tab
 
 [*.neon]
 indent_style = tab
+
+[*.md]
+indent_size = 2

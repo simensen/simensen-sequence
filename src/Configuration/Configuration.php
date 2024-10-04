@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Simensen\Sequence\Configuration;
 
-use Simensen\Sequence\Sequence\Column;
 use Simensen\Sequence\Sequence\Connection;
+use Simensen\Sequence\Sequence\CurrentValueColumn;
+use Simensen\Sequence\Sequence\DefaultStartValue;
+use Simensen\Sequence\Sequence\Name;
+use Simensen\Sequence\Sequence\NameColumn;
 use Simensen\Sequence\Sequence\Sequence;
 use Simensen\Sequence\Sequence\Table;
 
@@ -18,8 +21,11 @@ final readonly class Configuration
      */
     public function __construct(
         private string $sequenceClassName,
-        private ?Column $column = null,
+        private ?CurrentValueColumn $currentValueColumn = null,
         private ?Connection $connection = null,
+        private ?DefaultStartValue $defaultStartValue = null,
+        private ?Name $name = null,
+        private ?NameColumn $nameColumn = null,
         private ?Table $table = null,
     ) {
     }
@@ -29,14 +35,29 @@ final readonly class Configuration
         return $this->sequenceClassName;
     }
 
-    public function getColumnName(): ?string
-    {
-        return $this->column?->toString();
-    }
-
     public function getConnectionName(): ?string
     {
         return $this->connection?->toString();
+    }
+
+    public function getCurrentValueColumnName(): ?string
+    {
+        return $this->currentValueColumn?->toString();
+    }
+
+    public function getDefaultStartValue(): ?int
+    {
+        return $this->defaultStartValue?->toInt();
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name?->toString();
+    }
+
+    public function getNameColumnName(): ?string
+    {
+        return $this->nameColumn?->toString();
     }
 
     public function getTableName(): ?string

@@ -37,21 +37,32 @@ guarantees.
 #### Sequence Configuration
 
 Attributes are provided to facilitate commonly needed Sequence configuration
-without introducing these concepts in the public interfaces.
-
-##### `Column`
-
-Used if a `Sequences` implementation supports the idea of customizing the
-column or field containing the numeric value.
+without introducing these concepts through the public interfaces.
 
 ##### `Connection`
 
-Used if a `Sequences` implementation supports the idea multiple connections.
+Used to configure the connection name used by the sequence.
+
+##### `CurrentValueColumn`
+
+Used to configure the column or field name that contains the sequence's
+current value.
+
+##### `DefaultStartValue`
+
+Used to configure the start value of a sequence.
+
+##### `Name`
+
+Used to configure the name of the sequence.
+
+##### `NameColumn`
+
+Used to configure the column or field that contains the sequence's name.
 
 ##### `Table`
 
-Used if a `Sequences` implementation supports the idea of customizing the
-column or field containing the numeric value.
+Used to configure the table or document name that contains the sequence.
 
 #### `NumericSequence`
 
@@ -100,13 +111,13 @@ return the next value for the specified `$sequenceClassName`. The core
 expectations for the next value:
 
 - The `Sequences` MAY require additional configuration
-    - The `Sequences` MAY introduce additional Sequence Configuration attributes
+  - The `Sequences` MAY introduce additional Sequence Configuration attributes
 - The `Sequences` SHOULD read and map the Sequence Configuration attributes
   where possible
-    - An in-memory implementation may not care about `Column`, `Connection`, or
-      `Table`
-    - A database-backed implementation may care about `Column`, `Connection`, or
-      `Table`
+  - An in-memory implementation may not care about `Column`, `Connection`, or
+    `Table`
+  - A database-backed implementation may care about `Column`, `Connection`, or
+    `Table`
 - The next value SHOULD be a number (`int`)
 - The next value SHOULD be unique to *at least* the sequence
 

@@ -8,8 +8,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Simensen\Sequence\Configuration\Configuration;
-use Simensen\Sequence\Sequence\Column;
 use Simensen\Sequence\Sequence\Connection;
+use Simensen\Sequence\Sequence\CurrentValueColumn;
 use Simensen\Sequence\Sequence\Table;
 use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithAllAttributes;
 use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithColumnAndConnection;
@@ -28,12 +28,12 @@ class ConfigurationTest extends TestCase
     public function test(
         Configuration $configuration,
         string $sequenceClassName,
-        ?string $columnName = null,
+        ?string $currentValueColumnName = null,
         ?string $connectionName = null,
         ?string $tableName = null
     ): void {
         self::assertSame($sequenceClassName, $configuration->getSequenceClassName());
-        self::assertSame($columnName, $configuration->getColumnName());
+        self::assertSame($currentValueColumnName, $configuration->getCurrentValueColumnName());
         self::assertSame($connectionName, $configuration->getConnectionName());
         self::assertSame($tableName, $configuration->getTableName());
     }
@@ -61,22 +61,22 @@ class ConfigurationTest extends TestCase
             [
                 'configuration' => new Configuration(
                     FixtureSequenceWithAllAttributes::class,
-                    column: new Column('fixture_column_with_all_attributes'),
+                    currentValueColumn: new CurrentValueColumn('fixture_column_with_all_attributes'),
                     connection: new Connection('fixture_connection_with_all_attributes'),
                     table: new Table('fixture_table_with_all_attributes')
                 ),
                 'sequenceClassName' => FixtureSequenceWithAllAttributes::class,
-                'columnName' => 'fixture_column_with_all_attributes',
+                'currentValueColumnName' => 'fixture_column_with_all_attributes',
                 'connectionName' => 'fixture_connection_with_all_attributes',
                 'tableName' => 'fixture_table_with_all_attributes',
             ],
             [
                 'configuration' => new Configuration(
                     FixtureSequenceWithColumnOnly::class,
-                    column: new Column('fixture_column_with_column_only')
+                    currentValueColumn: new CurrentValueColumn('fixture_column_with_column_only')
                 ),
                 'sequenceClassName' => FixtureSequenceWithColumnOnly::class,
-                'columnName' => 'fixture_column_with_column_only',
+                'currentValueColumnName' => 'fixture_column_with_column_only',
             ],
             [
                 'configuration' => new Configuration(
@@ -97,21 +97,21 @@ class ConfigurationTest extends TestCase
             [
                 'configuration' => new Configuration(
                     FixtureSequenceWithColumnAndConnection::class,
-                    column: new Column('fixture_column_with_column_and_connection'),
+                    currentValueColumn: new CurrentValueColumn('fixture_column_with_column_and_connection'),
                     connection: new Connection('fixture_connection_with_column_and_connection')
                 ),
                 'sequenceClassName' => FixtureSequenceWithColumnAndConnection::class,
-                'columnName' => 'fixture_column_with_column_and_connection',
+                'currentValueColumnName' => 'fixture_column_with_column_and_connection',
                 'connectionName' => 'fixture_connection_with_column_and_connection',
             ],
             [
                 'configuration' => new Configuration(
                     FixtureSequenceWithColumnAndTable::class,
-                    column: new Column('fixture_column_with_column_and_table'),
+                    currentValueColumn: new CurrentValueColumn('fixture_column_with_column_and_table'),
                     table: new Table('fixture_table_with_column_and_table')
                 ),
                 'sequenceClassName' => FixtureSequenceWithColumnAndTable::class,
-                'columnName' => 'fixture_column_with_column_and_table',
+                'currentValueColumnName' => 'fixture_column_with_column_and_table',
                 'tableName' => 'fixture_table_with_column_and_table',
             ],
             [

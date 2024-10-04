@@ -5,12 +5,16 @@ it: tools vendor
 tools: phive
 
 .PHONY: cs
-cs: yamllint php-cs-fixer ## Lints, normalizes, and fixes code style issues
+cs: php-cs-fixer yamllint markdownlint ## Lints, normalizes, and fixes code style issues
 	composer normalize
 
 .PHONY: yamllint
 yamllint: phive
 	yamllint -c .yamllint.yaml --strict .
+
+.PHONY: markdownlint
+markdownlint:
+	markdownlint-cli2 --fix README.md || true
 
 .PHONY: php-cs-fixer
 php-cs-fixer: phive vendor
