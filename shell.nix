@@ -12,7 +12,6 @@ in
       configuredPkgs.php.packages.composer
       configuredPkgs.php.packages.phive
       pkgs.gnupg
-      pkgs.jetbrains.phpstorm
       pkgs.markdownlint-cli2
       pkgs.yamllint
     ];
