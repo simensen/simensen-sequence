@@ -4,16 +4,27 @@ declare(strict_types=1);
 
 namespace Simensen\Sequence\Sequences\Adapter;
 
-use Simensen\Sequence\Sequences\Sequences;
-
-final class GlobalInMemorySequences implements Sequences
+final class GlobalInMemorySequences implements InMemorySequences
 {
-    public function __construct(private int $next = 1)
+    private int $currentValue;
+
+    public function __construct(int $defaultStartValue = 1)
     {
+        $this->currentValue = $defaultStartValue - 1;
     }
 
-    public function nextForSequence(mixed $sequence): int
+    public function nextValueForSequence(mixed $sequenceClassName): int
     {
-        return $this->next++;
+        return ++$this->currentValue;
+    }
+
+    public function registerPotentialCurrentValueForSequence(string $sequenceClassName, int $value): void
+    {
+        $this->currentValue = max($this->currentValue, $value);
+    }
+
+    public function forceSetCurrentValueForSequence(string $sequenceClassName, int $value): void
+    {
+        $this->currentValue = $value;
     }
 }

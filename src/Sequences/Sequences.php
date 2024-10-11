@@ -13,5 +13,5 @@ interface Sequences
      *
      * @param class-string<Sequence<T>> $sequenceClassName
      */
-    public function nextForSequence(string $sequenceClassName): int;
+    public function nextValueForSequence(string $sequenceClassName): int;
 }

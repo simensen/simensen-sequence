@@ -10,6 +10,6 @@ trait DefaultNumericSequenceBehavior
 
     public function next(): int
     {
-        return $this->sequences->nextForSequence(static::class);
+        return $this->sequences->nextValueForSequence(static::class);
     }
 }

@@ -27,16 +27,16 @@ class NumericSequenceTest extends TestCase
     {
         return [
             [1, new GlobalInMemorySequences()],
-            [2, new GlobalInMemorySequences(next: 2)],
-            [3, new GlobalInMemorySequences(next: 3)],
-            [4, new GlobalInMemorySequences(next: 4)],
-            [5, new GlobalInMemorySequences(next: 5)],
+            [2, new GlobalInMemorySequences(defaultStartValue: 2)],
+            [3, new GlobalInMemorySequences(defaultStartValue: 3)],
+            [4, new GlobalInMemorySequences(defaultStartValue: 4)],
+            [5, new GlobalInMemorySequences(defaultStartValue: 5)],
 
             [1, new ClassBasedInMemorySequences()],
-            [2, new ClassBasedInMemorySequences(defaultNext: 2)],
-            [3, new ClassBasedInMemorySequences(defaultNext: 3)],
-            [4, new ClassBasedInMemorySequences(defaultNext: 4)],
-            [5, new ClassBasedInMemorySequences(defaultNext: 5)],
+            [2, new ClassBasedInMemorySequences(defaultStartValue: 2)],
+            [3, new ClassBasedInMemorySequences(defaultStartValue: 3)],
+            [4, new ClassBasedInMemorySequences(defaultStartValue: 4)],
+            [5, new ClassBasedInMemorySequences(defaultStartValue: 5)],
         ];
     }
 }

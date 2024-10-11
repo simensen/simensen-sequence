@@ -139,7 +139,7 @@ class CastedSequenceTest extends TestCase
     public function testUsingConfiguredClassBasedInMemorySequencesNonDefaultForOneClass(): void
     {
         $sequences = new ClassBasedInMemorySequences(setup: [
-            ServiceIdSequence::class => ['next' => 10],
+            ServiceIdSequence::class => ['startValue' => 10],
         ]);
 
         $userIdSequence = new UserIdSequence($sequences);
@@ -171,8 +171,8 @@ class CastedSequenceTest extends TestCase
     public function testUsingConfiguredClassBasedInMemorySequencesNonDefaultForMultipleClasses(): void
     {
         $sequences = new ClassBasedInMemorySequences(setup: [
-            UserIdSequence::class => ['next' => 80],
-            ServiceIdSequence::class => ['next' => 75],
+            UserIdSequence::class => ['startValue' => 80],
+            ServiceIdSequence::class => ['startValue' => 75],
         ]);
 
         $userIdSequence = new UserIdSequence($sequences);

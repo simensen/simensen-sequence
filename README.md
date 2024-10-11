@@ -166,6 +166,37 @@ $serviceIdSequence->next(); // 1
 $userIdSequence->next(); // 3
 ```
 
+#### `CurrentValueManagement`
+
+The `CurrentValueManagement` interface exposes additional functionality
+for `Sequences` to manage aspects of `Sequence`'s current value.
+
+##### `registerPotentialCurrentValueForSequence`
+
+Useful for backfilling sequence-related data. This method sets the current
+value to the specified value only if it is a larger value than the
+existing current value.
+
+This method is called with a `Sequence<T>` class name and a *potential current
+value*.
+
+If the `Sequence<T>` does not have a current value yet, the default start
+value is used for the current value.
+
+If the *potential current value* is greater than the current value for the
+`Sequence<T>`, the *potential current value* becomes the new current value.
+
+Otherwise, there is no change to the current value.
+
+##### `forceSetCurrentValueForSequence`
+
+Useful in testing. This method sets the current value to the specified value
+regardless of the existing current value.
+
+This method is called with a `Sequence<T>` class name and a *value*.
+
+The current value for the `Sequence<T>` is always set to the new value.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE). See the `LICENSE`
