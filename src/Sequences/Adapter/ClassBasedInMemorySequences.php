@@ -75,4 +75,18 @@ final class ClassBasedInMemorySequences implements InMemorySequences
     {
         $this->setup[$sequenceClassName] = ['currentValue' => $value];
     }
+
+    public function hasCurrentValueForSequence(string $sequenceClassName): bool
+    {
+        return isset($this->setup[$sequenceClassName]['currentValue']);
+    }
+
+    public function getCurrentValueForSequence(string $sequenceClassName): int
+    {
+        if (isset($this->setup[$sequenceClassName]['currentValue'])) {
+            return $this->setup[$sequenceClassName]['currentValue'];
+        }
+
+        return $this->defaultStartValue - 1;
+    }
 }

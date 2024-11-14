@@ -149,4 +149,90 @@ abstract class AbstractInMemorySequencesTestCase extends TestCase
             [UserIdSequence::class, 153, 13, UserId::fromInt(14)],
         ];
     }
+
+    /**
+     * @template T2
+     *
+     * @param class-string<Sequence<T2>> $sequenceClassName
+     */
+    #[DataProvider('provideGetCurrentValueForSequenceData')]
+    public function testGetCurrentValueForSequence(
+        string $sequenceClassName,
+        mixed $defaultStartValue,
+        mixed $forceSetCurrentValue,
+        mixed $expectedNext
+    ): void {
+        // We do this because the default start value is what
+        // current should be after the first next() call.
+        $expectedStartValue = $defaultStartValue - 1;
+
+        /** @var CurrentValueManagement $sequences */
+        $sequences = $this->getSequencesUnderTest($defaultStartValue);
+
+        $currentValueBefore = $sequences->getCurrentValueForSequence($sequenceClassName);
+
+        $sequences->forceSetCurrentValueForSequence(
+            $sequenceClassName,
+            $forceSetCurrentValue
+        );
+
+        $currentValueAfter = $sequences->getCurrentValueForSequence($sequenceClassName);
+
+        $sequence = new $sequenceClassName($sequences);
+
+        self::assertInstanceOf($sequenceClassName, $sequence);
+        self::assertEquals($expectedNext, $sequence->next());
+        self::assertEquals($expectedStartValue, $currentValueBefore);
+        self::assertEquals($forceSetCurrentValue, $currentValueAfter);
+    }
+
+    public static function provideGetCurrentValueForSequenceData(): array
+    {
+        return [
+            [FixtureNumericSequence::class, 3, 1, 2],
+            [ServiceIdSequence::class, 3, 1, ServiceId::fromInt(2)],
+            [UserIdSequence::class, 3, 1, UserId::fromInt(2)],
+
+            [FixtureNumericSequence::class, 12, 5, 6],
+            [ServiceIdSequence::class, 12, 5, ServiceId::fromInt(6)],
+            [UserIdSequence::class, 12, 5, UserId::fromInt(6)],
+
+            [FixtureNumericSequence::class, 12, 11, 12],
+            [ServiceIdSequence::class, 12, 11, ServiceId::fromInt(12)],
+            [UserIdSequence::class, 12, 11, UserId::fromInt(12)],
+
+            [FixtureNumericSequence::class, 12, 12, 13],
+            [ServiceIdSequence::class, 12, 12, ServiceId::fromInt(13)],
+            [UserIdSequence::class, 12, 12, UserId::fromInt(13)],
+
+            [FixtureNumericSequence::class, 12, 13, 14],
+            [ServiceIdSequence::class, 12, 13, ServiceId::fromInt(14)],
+            [UserIdSequence::class, 12, 13, UserId::fromInt(14)],
+
+            [FixtureNumericSequence::class, 153, 13, 14],
+            [ServiceIdSequence::class, 153, 13, ServiceId::fromInt(14)],
+            [UserIdSequence::class, 153, 13, UserId::fromInt(14)],
+        ];
+    }
+
+
+    /**
+     * @template T2
+     *
+     * @param class-string<Sequence<T2>> $sequenceClassName
+     */
+    public function testHasCurrentValueForSequence(): void
+    {
+        $sequences = $this->getSequencesUnderTest(100);
+
+        $sequence = new FixtureNumericSequence($sequences);
+
+        self::assertFalse($sequences->hasCurrentValueForSequence(FixtureNumericSequence::class));
+        self::assertFalse($sequences->hasCurrentValueForSequence(FixtureNumericSequence::class));
+        self::assertEquals(99, $sequences->getCurrentValueForSequence(FixtureNumericSequence::class));
+        self::assertFalse($sequences->hasCurrentValueForSequence(FixtureNumericSequence::class));
+        self::assertEquals(100, $sequence->next());
+        self::assertTrue($sequences->hasCurrentValueForSequence(FixtureNumericSequence::class));
+        self::assertEquals(100, $sequences->getCurrentValueForSequence(FixtureNumericSequence::class));
+    }
 }

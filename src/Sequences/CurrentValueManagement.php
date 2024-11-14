@@ -8,6 +8,10 @@ use Simensen\Sequence\Sequence\Sequence;
 
 interface CurrentValueManagement
 {
+    public function hasCurrentValueForSequence(string $sequenceClassName): bool;
+
+    public function getCurrentValueForSequence(string $sequenceClassName): int;
+
     /**
      * @template T
      *
