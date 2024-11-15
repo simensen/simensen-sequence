@@ -30,6 +30,9 @@ final readonly class Configuration
     ) {
     }
 
+    /**
+     * @return class-string<Sequence<*>>
+     */
     public function getSequenceClassName(): string
     {
         return $this->sequenceClassName;
