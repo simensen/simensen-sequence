@@ -215,11 +215,8 @@ abstract class AbstractInMemorySequencesTestCase extends TestCase
         ];
     }
 
-
     /**
      * @template T2
-     *
-     * @param class-string<Sequence<T2>> $sequenceClassName
      */
     public function testHasCurrentValueForSequence(): void
     {

@@ -23,9 +23,24 @@ use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWi
 
 class ConfigurationTest extends TestCase
 {
+    #[TestDox('default values')]
+    public function testDefaultValues(): void
+    {
+        $configuration = new Configuration(FixtureSequenceWithNoAttributes::class);
+
+        self::assertSame(FixtureSequenceWithNoAttributes::class, $configuration->getSequenceClassName());
+
+        self::assertNull($configuration->getConnectionName());
+        self::assertNull($configuration->getCurrentValueColumnName());
+        self::assertNull($configuration->getDefaultStartValue());
+        self::assertNull($configuration->getName());
+        self::assertNull($configuration->getNameColumnName());
+        self::assertNull($configuration->getTableName());
+    }
+
     #[TestDox('$sequenceClassName')]
     #[DataProvider('provideData')]
-    public function test(
+    public function testSequenceClassName(
         Configuration $configuration,
         string $sequenceClassName,
         ?string $currentValueColumnName = null,
@@ -36,6 +51,37 @@ class ConfigurationTest extends TestCase
         self::assertSame($currentValueColumnName, $configuration->getCurrentValueColumnName());
         self::assertSame($connectionName, $configuration->getConnectionName());
         self::assertSame($tableName, $configuration->getTableName());
+
+        $blankConfiguration = new Configuration($sequenceClassName);
+
+        self::assertSame($sequenceClassName, $blankConfiguration->getSequenceClassName());
+        self::assertNull($blankConfiguration->getConnectionName());
+        self::assertNull($blankConfiguration->getCurrentValueColumnName());
+        self::assertNull($blankConfiguration->getDefaultStartValue());
+        self::assertNull($blankConfiguration->getName());
+        self::assertNull($blankConfiguration->getNameColumnName());
+        self::assertNull($blankConfiguration->getTableName());
+
+        $defaults = [];
+
+        if ($currentValueColumnName) {
+            $defaults['currentValueColumn'] = new CurrentValueColumn($currentValueColumnName);
+        }
+
+        if ($connectionName) {
+            $defaults['connection'] = new Connection($connectionName);
+        }
+
+        if ($tableName) {
+            $defaults['table'] = new Table($tableName);
+        }
+
+        $withDefaultConfiguration = $blankConfiguration->withDefaults(...$defaults);
+
+        self::assertSame($sequenceClassName, $withDefaultConfiguration->getSequenceClassName());
+        self::assertSame($currentValueColumnName, $withDefaultConfiguration->getCurrentValueColumnName());
+        self::assertSame($connectionName, $withDefaultConfiguration->getConnectionName());
+        self::assertSame($tableName, $withDefaultConfiguration->getTableName());
     }
 
     public static function provideData(): array

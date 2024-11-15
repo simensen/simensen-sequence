@@ -14,7 +14,7 @@ final class GlobalInMemorySequences implements InMemorySequences
 
     public function nextValueForSequence(mixed $sequenceClassName): int
     {
-        if (! $this->currentValue) {
+        if (!$this->currentValue) {
             $this->currentValue = $this->defaultStartValue - 1;
         }
 
@@ -23,7 +23,7 @@ final class GlobalInMemorySequences implements InMemorySequences
 
     public function registerPotentialCurrentValueForSequence(string $sequenceClassName, int $value): void
     {
-        if (! $this->currentValue) {
+        if (!$this->currentValue) {
             $this->currentValue = $this->defaultStartValue - 1;
         }
 
@@ -37,7 +37,7 @@ final class GlobalInMemorySequences implements InMemorySequences
 
     public function hasCurrentValueForSequence(string $sequenceClassName): bool
     {
-        return ! is_null($this->currentValue);
+        return !is_null($this->currentValue);
     }
 
     public function getCurrentValueForSequence(string $sequenceClassName): int
