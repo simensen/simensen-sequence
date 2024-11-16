@@ -36,6 +36,20 @@ class ConfigurationTest extends TestCase
         self::assertNull($configuration->getName());
         self::assertNull($configuration->getNameColumnName());
         self::assertNull($configuration->getTableName());
+
+        self::assertSame('test', $configuration->getConnectionName('test'));
+        self::assertSame('test', $configuration->getCurrentValueColumnName('test'));
+        self::assertSame(5, $configuration->getDefaultStartValue(5));
+        self::assertSame('test', $configuration->getName('test'));
+        self::assertSame('test', $configuration->getNameColumnName('test'));
+        self::assertSame('test', $configuration->getTableName('test'));
+
+        self::assertNull($configuration->getConnectionName());
+        self::assertNull($configuration->getCurrentValueColumnName());
+        self::assertNull($configuration->getDefaultStartValue());
+        self::assertNull($configuration->getName());
+        self::assertNull($configuration->getNameColumnName());
+        self::assertNull($configuration->getTableName());
     }
 
     #[TestDox('$sequenceClassName')]

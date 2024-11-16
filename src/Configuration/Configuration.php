@@ -55,17 +55,17 @@ final readonly class Configuration
 
     public function getName(?string $defaultValue = null): ?string
     {
-        return $this->name?->toString() ?? $defaultValue = null;
+        return $this->name?->toString() ?? $defaultValue;
     }
 
     public function getNameColumnName(?string $defaultValue = null): ?string
     {
-        return $this->nameColumn?->toString() ?? $defaultValue = null;
+        return $this->nameColumn?->toString() ?? $defaultValue;
     }
 
     public function getTableName(?string $defaultValue = null): ?string
     {
-        return $this->table?->toString() ?? $defaultValue = null;
+        return $this->table?->toString() ?? $defaultValue;
     }
 
     public function withDefaults(
