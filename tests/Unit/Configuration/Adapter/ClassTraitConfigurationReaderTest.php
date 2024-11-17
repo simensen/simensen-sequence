@@ -18,12 +18,38 @@ use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWi
 use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithColumnOnly;
 use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithConnectionAndTable;
 use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithConnectionOnly;
+use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithInheritanceTop;
 use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithNoAttributes;
 use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithTableAndUnrelated;
 use Simensen\Sequence\Tests\Unit\Configuration\Adapter\Fixture\FixtureSequenceWithTableOnly;
 
 class ClassTraitConfigurationReaderTest extends TestCase
 {
+    #[TestDox('$sequenceClassName deep')]
+    public function testDeep(): void
+    {
+        $configurationReader = new ClassTraitConfigurationReader();
+
+        $configuration = $configurationReader->readSequenceConfigurationForClass(
+            FixtureSequenceWithInheritanceTop::class
+        );
+
+        self::assertEquals(
+            'fixture_connection_with_inheritance_bottom',
+            $configuration->getConnectionName()
+        );
+
+        self::assertEquals(
+            'fixture_table_with_inheritance_middle',
+            $configuration->getTableName()
+        );
+
+        self::assertEquals(
+            'fixture_name_with_inheritance_top',
+            $configuration->getName()
+        );
+    }
+
     #[TestDox('$sequenceClassName')]
     #[DataProvider('provideData')]
     public function test(string $sequenceClassName, Configuration $expectedConfiguration): void

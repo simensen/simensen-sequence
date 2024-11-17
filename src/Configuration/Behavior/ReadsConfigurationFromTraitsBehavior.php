@@ -14,21 +14,35 @@ use Simensen\Sequence\Sequence\NameColumn;
 use Simensen\Sequence\Sequence\Sequence;
 use Simensen\Sequence\Sequence\Table;
 
+/**
+ * @phpstan-import-type ConfigurationArgs from Configuration
+ * @phpstan-import-type ConfigurationPartialArgs from Configuration
+ */
 trait ReadsConfigurationFromTraitsBehavior
 {
     /**
-     * @template T
-     *
-     * @param class-string<Sequence<T>> $sequenceClassName
+     * @param class-string<Sequence<*>> $sequenceClassName
      */
     public function readSequenceConfigurationForClass(string $sequenceClassName): Configuration
     {
         $reflectionClass = new ReflectionClass($sequenceClassName);
 
-        /** @var array{'sequenceClassName': class-string<Sequence<T>>, "connection"?: Connection, "currentValueColumn"?: CurrentValueColumn, "defaultStartValue"?: DefaultStartValue, "name"?: Name, "nameColumn"?: NameColumn, "table"?: Table} $args */
+        /** @var ConfigurationArgs $args */
         $args = [
             'sequenceClassName' => $sequenceClassName,
-        ];
+        ] + $this->readSequenceConfigurationArgsForClass($reflectionClass);
+
+        return new Configuration(...$args);
+    }
+
+    /**
+     * @param ReflectionClass<*> $reflectionClass
+     *
+     * @return ConfigurationPartialArgs
+     */
+    protected function readSequenceConfigurationArgsForClass(ReflectionClass $reflectionClass): array
+    {
+        $args = [];
 
         foreach ($reflectionClass->getAttributes() as $reflectionAttribute) {
             $attribute = match ($reflectionAttribute->getName()) {
@@ -57,6 +71,17 @@ trait ReadsConfigurationFromTraitsBehavior
             $args[$name] = $attribute;
         }
 
-        return new Configuration(...$args);
+        /**
+         * @var ConfigurationPartialArgs $args
+         */
+        if ($parentClassReflection = $reflectionClass->getParentClass()) {
+            $parentArgs = $this->readSequenceConfigurationArgsForClass(
+                $parentClassReflection,
+            );
+
+            $args += $parentArgs;
+        }
+
+        return $args;
     }
 }

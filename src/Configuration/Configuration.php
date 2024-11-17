@@ -12,12 +12,14 @@ use Simensen\Sequence\Sequence\NameColumn;
 use Simensen\Sequence\Sequence\Sequence;
 use Simensen\Sequence\Sequence\Table;
 
+/**
+ * @phpstan-type ConfigurationPartialArgs array{'sequenceClassName'?: class-string<Sequence<*>>, "connection"?: Connection, "currentValueColumn"?: CurrentValueColumn, "defaultStartValue"?: DefaultStartValue, "name"?: Name, "nameColumn"?: NameColumn, "table"?: Table}
+ * @phpstan-type ConfigurationArgs array{'sequenceClassName': class-string<Sequence<*>>, "connection"?: Connection, "currentValueColumn"?: CurrentValueColumn, "defaultStartValue"?: DefaultStartValue, "name"?: Name, "nameColumn"?: NameColumn, "table"?: Table}
+ */
 final readonly class Configuration
 {
     /**
-     * @template T
-     *
-     * @param class-string<Sequence<T>> $sequenceClassName
+     * @param class-string<Sequence<*>> $sequenceClassName
      */
     public function __construct(
         private string $sequenceClassName,
