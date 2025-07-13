@@ -106,7 +106,7 @@ final readonly class PartIdSequence extends CastedSequence
 The `Sequences` interface provides the bridge between a `Sequence` and its
 underlying persistence infrastructure.
 
-Calling a `Sequences`' `generateForClass($sequenceClassName): int` method will
+Calling a `Sequences`' `nextValueForSequence($sequenceClassName): int` method will
 return the next value for the specified `$sequenceClassName`. The core
 expectations for the next value:
 
@@ -129,7 +129,7 @@ This `Sequences` implementation is useful for testing. It generates unique
 next values using the same underlying value for every type of `Sequence<T>`.
 
 ```php
-use Simensen\Sequence\Sequences\Sequences\GlobalInMemorySequences;
+use Simensen\Sequence\Sequences\Adapter\GlobalInMemorySequences;
 
 $sequences = new GlobalInMemorySequences();
 
@@ -151,7 +151,7 @@ next values using a different underlying value for every type of
 `Sequence<T>`.
 
 ```php
-use Simensen\Sequence\Sequences\Sequences\ClassBasedInMemorySequences;
+use Simensen\Sequence\Sequences\Adapter\ClassBasedInMemorySequences;
 
 $sequences = new ClassBasedInMemorySequences();
 
